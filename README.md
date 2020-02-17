@@ -11,4 +11,7 @@ multithreading_testing.py file:
   Change the path for the geckodriver.exe
   Change the path for the XSS payload file 
   
+  
+Note: For mac users you have to configure the capabilties for the geckodriver
+  
  
