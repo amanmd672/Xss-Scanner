@@ -6,6 +6,8 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.keys import Keys
 import time
 import threading
+import login_attempt
+import pickle
 import main
 
 
@@ -52,6 +54,10 @@ class B:
         url = self.uo.geturl() + line
         self.browser.get(url)
         print(url)
+        cookies = pickle.load(open("cookies.pkl", "rb"))
+        for cookie in cookies:
+            self.browser.add_cookie(cookie)
+        print("All cookies are loaded")
         try:
             alert1 = self.browser.switch_to.alert
             alert1.accept()
@@ -212,9 +218,17 @@ def start_engine(url_path):
         for line in fp:
             u.append(STATUS(line))
     fp.close()
-    t1=threading.Thread(target=b1,args=(u[0],u[1],u[2]))
-    t2=threading.Thread(target=b2,args=(u[3],u[4],u[5]))
-    t3=threading.Thread(target=b3,args=(u[6],u[7],u[8]))
+    a = len(u)
+    while a <= 9:
+        u.append(u[0])
+        a = a+1
+    ch = input('Does this application Requires login?(Y/N)')
+    if ch == 'Y':
+        login_url = input('Enter the login URL')
+        login_attempt.login(login_url)
+    t1 = threading.Thread(target=b1, args=(u[0], u[1], u[2]))
+    t2 = threading.Thread(target=b2, args=(u[3], u[4], u[5]))
+    t3 = threading.Thread(target=b3, args=(u[6], u[7], u[8]))
 
     t1.start()
     t2.start()

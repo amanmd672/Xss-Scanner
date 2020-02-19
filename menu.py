@@ -2,7 +2,7 @@ import main
 
 while 1:
     print("\n\n\n")
-    print("*---"*20)
+    print("*---1"*20)
     print("\t\t\t\t\t\t\tMain Menu")
     print("*---"*20)
     print("\n\n")
