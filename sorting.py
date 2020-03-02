@@ -51,14 +51,15 @@ def fun(file_path):
 
     print(len(kw_sorted))
 
-    upload = open(file_path + "\\get.txt", 'w')
+    upload = open(file_path+'get_updated.txt', 'w')
 
     for line in kw_sorted:
         upload.write(line)
+        print(line)
 
     upload.close()
 
-    sorting2.sort_2(file_path)
+    #sorting2.sort_2(file_path)
 
     print("\n\t\t\t\tDone!")
 

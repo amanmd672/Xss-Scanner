@@ -52,27 +52,46 @@ class B:
 
     def bro_testing(self, line, id):
         url = self.uo.geturl() + line
-        self.browser.get(url)
+        self.browser.get(self.uo.geturl())
         print(url)
-        cookies = pickle.load(open("cookies.pkl", "rb"))
-        for cookie in cookies:
-            self.browser.add_cookie(cookie)
-        print("All cookies are loaded")
+        if load_cookies == '1':
+            # try:
+            #     atbefore = self.browser.switch_to.alert
+            #     atbefore.accept()
+            #     print('Alert accepted before loading cookies')
+            # except:
+            #     print('No alert box before loading cookies')
+            time.sleep(3)
+            self.browser.delete_all_cookies()
+            cookies = pickle.load(open("cookies.pkl", "rb"))
+            for cookie in cookies:
+                self.browser.add_cookie(cookie)
+                print('')
+            print("All cookies are loaded")
+        self.browser.get(url)
         try:
+            print('test100')
             alert1 = self.browser.switch_to.alert
+            print('test0')
             alert1.accept()
+            print('test1')
             print(id + " => alert 1 is accepted")
             try:
+                print('test2')
                 alert1 = self.browser.switch_to.alert
-
+                print('test3')
                 if alert1:
                     alerts(self.browser)
                     self.uo.setstats()
                     return 0
             except:
+                print('test4')
                 self.uo.setstats()
+                print('test5')
                 return 0
-        except:
+        except Exception as inst:
+            print('test6')
+            print(type(inst))
             return 1
 
 
@@ -226,6 +245,12 @@ def start_engine(url_path):
     if ch == 'Y':
         login_url = input('Enter the login URL')
         login_attempt.login(login_url)
+        global load_cookies
+        load_cookies = '1'
+        print(load_cookies)
+    else:
+        load_cookies = '0'
+        print(load_cookies)
     t1 = threading.Thread(target=b1, args=(u[0], u[1], u[2]))
     t2 = threading.Thread(target=b2, args=(u[3], u[4], u[5]))
     t3 = threading.Thread(target=b3, args=(u[6], u[7], u[8]))

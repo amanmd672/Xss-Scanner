@@ -15,6 +15,7 @@ def sort_2(file_path):
         for line in urls:
             url.append(line)
 
+
     for i in range(0, len(url)-1):
 
         start = 0
@@ -55,6 +56,7 @@ def sort_2(file_path):
 
     for line in real_url:
         upload.write(line)
+
 
     upload.write(real_url[len(real_url)-1])
 
